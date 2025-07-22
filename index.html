@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Joke Generator</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 50px; }
+    button { padding: 10px 20px; font-size: 16px; }
+    #output { margin-top: 20px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>AI Joke Generator</h1>
+  <button onclick="generateJoke()">Get a Joke</button>
+  <div id="output"></div>
+
+  <script>
+    async function generateJoke() {
+      const response = await fetch("/api/generate_joke", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: "Tell me a joke" })
+      });
+      const data = await response.json();
+      document.getElementById("output").innerText = data.result || data.error;
+    }
+  </script>
+</body>
+</html>
